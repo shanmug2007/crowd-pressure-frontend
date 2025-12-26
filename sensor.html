@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Automatic Crowd Sensor</title>
+</head>
+<body>
+
+<h2>📡 Live Crowd Sensor (Simulated)</h2>
+
+<p>Location: <b>Temple</b></p>
+<p>People Count: <span id="count">0</span></p>
+
+<script>
+let people = 50;
+
+function sendSensorData() {
+  // simulate crowd change
+  people += Math.floor(Math.random() * 60 - 10);
+  if (people < 0) people = 0;
+
+  document.getElementById("count").innerText = people;
+
+  fetch("http://localhost:5000/sensor", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      location: "Temple",
+      people: people
+    })
+  });
+}
+
+// send data every 3 seconds
+setInterval(sendSensorData, 3000);
+</script>
+
+</body>
+</html>

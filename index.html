@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crowd Pressure Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 100px;
+    }
+    .box {
+      width: 300px;
+      margin: auto;
+      padding: 30px;
+      color: white;
+      font-size: 24px;
+      border-radius: 10px;
+    }
+    .LOW { background: green; }
+    .MEDIUM { background: orange; }
+    .HIGH { background: red; }
+  </style>
+</head>
+
+<body>
+
+<h1>Crowd Pressure Monitoring</h1>
+
+<input id="location" placeholder="Location name"><br><br>
+<input id="people" type="number" placeholder="People count"><br><br>
+
+<button onclick="sendData()">Check Risk</button>
+
+<br><br>
+
+<div id="result" class="box LOW">Waiting for data</div>
+
+<script>
+async function fetchStatus() {
+  const res = await fetch("http://localhost:5000/status");
+  const data = await res.json();
+
+  const box = document.getElementById("result");
+  box.innerText =
+    `Location: ${data.location}\nPeople: ${data.people}\nRisk: ${data.risk}`;
+  box.className = "box " + data.risk;
+}
+
+// auto update every 3 seconds
+setInterval(fetchStatus, 3000);
+</script>
+
+</body>
+</html>
