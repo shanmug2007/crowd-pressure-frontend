@@ -20,7 +20,8 @@ function sendSensorData() {
 
   document.getElementById("count").innerText = people;
 
-  fetch("http://localhost:5000/sensor", {
+  fetch("https://crowd-pressure-backend.onrender.com/sensor", {
+
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -36,3 +37,4 @@ setInterval(sendSensorData, 3000);
 
 </body>
 </html>
+
