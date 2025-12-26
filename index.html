@@ -26,24 +26,25 @@
 
 <h1>Crowd Pressure Monitoring</h1>
 
-<input id="location" placeholder="Location name"><br><br>
-<input id="people" type="number" placeholder="People count"><br><br>
 
-<button onclick="sendData()">Check Risk</button>
 
 <br><br>
 
-<div id="result" class="box LOW">Waiting for data</div>
+<div id="result" class="box LOW">Listening for live sensor data...</div>
+
 
 <script>
 async function fetchStatus() {
   const res = await fetch("https://crowd-pressure-backend.onrender.com/status");
-
   const data = await res.json();
 
   const box = document.getElementById("result");
+
   box.innerText =
-    `Location: ${data.location}\nPeople: ${data.people}\nRisk: ${data.risk}`;
+    `Location: ${data.location}
+People: ${data.people}
+Risk: ${data.risk}`;
+
   box.className = "box " + data.risk;
 }
 
@@ -51,6 +52,8 @@ async function fetchStatus() {
 setInterval(fetchStatus, 3000);
 </script>
 
+
 </body>
 </html>
+
 
