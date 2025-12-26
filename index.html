@@ -37,7 +37,8 @@
 
 <script>
 async function fetchStatus() {
-  const res = await fetch("http://localhost:5000/status");
+  const res = await fetch("https://crowd-pressure-backend.onrender.com/status");
+
   const data = await res.json();
 
   const box = document.getElementById("result");
@@ -52,3 +53,4 @@ setInterval(fetchStatus, 3000);
 
 </body>
 </html>
+
